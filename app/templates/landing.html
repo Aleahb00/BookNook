@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body>
+    <ul class="navbar" id="nav">
+        <img src="/static/images/logo.svg">
+        <li><a href="{%url 'login'%}" class="link" id="home">Home</a></li>
+        {%if user.is_authenticated%}
+            <li><a href="{%url 'logout'%}" class="link" style="margin-left: 40vh;">Logout</a></li>
+        {% else %}
+            <li><a href="{%url 'login'%}" class="link">Login</a></li>
+            <li><a href="{%url 'register'%}" class="btn" style="margin-left: 40vh;">Get Started</a></li>
+        {%endif%}
+    </ul>
+    <section class="content">
+
+        <h1 style="font-size:32px; font-weight:bold;">BookNook</h1>
+        <h2>The library management site.</h2>
+            <p class="pg">Keep all your books in one place. Create shelves, add books, and filter your library to stay organized and never lose track of what you're reading.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>Create & Manage Books</h3>
+                    <p>Add and manage your books with full details, and organize them across multiple shelves effortlessly.</p>
+                </div>
+                <div class="feature">
+                    <h3>Personal Shelves</h3>
+                    <p>Create custom shelves to organize your books your way — from reading lists and wishlists to completed collections.</p>
+                </div>
+                <div class="feature">
+                    <h3>Category Filtering</h3>
+                    <p>Easily filter your books by category to find exactly what you're looking for in seconds.</p>
+                </div>
+            </div>
+            <a href="#nav" ><button class="backtotop" id="totop">Back To Top</button></a>
+    </section>
+</body>
+{% endblock content %}

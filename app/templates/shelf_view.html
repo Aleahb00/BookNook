@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<body class="library-body">
+
+    <div class="sidebar">
+        <a href="{%url 'landing'%}" style="text-decoration: none;"><h1>BookNook</h1></a>
+        <h3>Sort/Filter</h3>
+        <a href="{% url 'books_filtered' 'fiction' %}">Fiction</a>
+        <a href="{% url 'books_filtered' 'nonfiction' %}">NonFiction</a>
+        <a href="{% url 'home' %}" id="all">All Books</a>
+        <a href="{% url 'shelf_view' %}">All Shelves</a>
+        <hr>
+        <h3>Manage</h3>
+        <a href="{%url 'home'%}">Home</a>
+        <a href="{%url 'add_book'%}">Add Book</a>
+        <a href="{%url 'add_shelf'%}">Add Shelf</a>
+        <a href="{%url 'logout'%}" id="logout">Logout</a>
+    </div>
+
+    <section class="main">
+        <h1>Shelves </h1>
+            <section class="shelves">
+                {% for shelf in bookshelves %}
+                        <div class="shelf">
+                            <p class="shelf-title">{{ shelf.name }}</p>
+                                <p class="books-in-shelf">Books:
+                                {%for book in shelf.books.all%}
+                                    <span class="shelf-tag">{{ book.title }}</span>
+                                {% empty %}
+                                    <span class="shelf-tag">None.</span>
+                                {% endfor %}
+                                </p>
+                                <a href="{% url 'edit_shelf' shelf.id %}" id="link">Edit</a>
+                                    <form method="post" action="{% url 'delete_shelf' shelf.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="button">Delete</button>
+                                    </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+    </section>
+
+
+</body>
+{% endblock content %}

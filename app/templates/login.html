@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body class="account-body">
+
+    <div class="account-content" >
+        <h1><a href="{%url 'landing'%}" style="color: black; text-decoration: none;">BookNook</a></h1>
+        <h3>The library management site.</h3>
+        <img src="/static/images/logo.svg" style="width: 200px; height: 200px;">
+    </div>
+
+    <form method="POST" class="account-content2" style="padding-bottom: 15%;">
+        <h1>Login to your account</h1>
+        <h4>Welcome back! You've been missed!</h4>
+            {% csrf_token %}
+            {%for field in form%} 
+            {{field.label_tag}}
+            {{field}}
+            {%endfor%}
+            <button type="submit" class="button">login</button>
+        <a href="{%url 'register'%}" class="link" style="font-size:12px;">Don't have an account? Register Here.</a>
+    </form>
+</body>
+
+{% endblock content %}
