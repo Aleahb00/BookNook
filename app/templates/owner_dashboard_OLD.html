@@ -1,0 +1,101 @@
+{%extends "base.html"%}
+{%load static%}
+
+{%block content%}
+
+<body class="library-body">
+
+    <div class="sidebar">
+        <a href="{%url 'landing'%}" style="text-decoration: none;"><h1>BookNook</h1></a>
+        <h3>Manage</h3>
+        <a id="manageusers" >Manage Users</a>
+        <a id="managebooks">Manage Books</a>
+        <a id="manageshelves">Manage Shelves</a>
+        <hr>
+        <a href="{%url 'logout'%}"  id="logout">Logout</a>
+    </div>
+
+    <section class="main">
+        <h1>Owner Dashboard</h1>
+        <p>Welcome, {{ user.username }}! Here you can manage the library.</p>
+
+            <div class="user-section">
+                <h2>Users</h2>
+                <ul class="section-content">
+                    {% for u in users %}
+                    <li style="list-style-type: none;">{{ u.username }} - {{ u.email }}</li>
+                    <form method="post" action="{% url 'owner_delete_user' u.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button" style="color:red;">Delete</button>
+                    </form>
+                    {% empty %}
+                    <li>No users found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+
+
+            <div class="book-section">
+                <h2>Books</h2>
+                    <div class="book-grid">
+                    {% for book in books %}
+                    <div class="book-card">
+                    <h2 class="book-title">{{ book.title }}</h2>
+                    <p class="book-author">Author: {{ book.author }}</p>
+                    <p class="book-category">Category: {{ book.category }}</p>
+                    <p style="font-size: 16px; color: #212121;" class="book-pages">Pages: {{ book.pages }}</p>
+                    <p class="book-shelves">Shelves:
+                        {% for shelf in book.bookshelves.all %}
+                            <span class="book-tag">{{ shelf.name }}</span>
+                        {% empty %}
+                            <span class="book-tag">None</span>
+                        {% endfor %}
+                    </p>
+                        <a href="{% url 'owner_edit_book' book.id %}" id="link"> Edit</a>
+                    <form method="post" action="{% url 'owner_delete_book' book.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button" style="color:red;">Delete</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+
+
+
+
+            <div class="shelf-section">
+
+
+
+<section class="main">
+        <h1>Shelves </h1>
+            <section class="shelves">
+                {% for s in shelves %}
+                        <div class="shelf">
+                            <p class="shelf-title" style="color: black;">{{ s.name }}</p>
+                                <p class="books-in-shelf">Books:
+                                {%for book in s.books.all%}
+                                    <span class="shelf-tag">{{ book.title }}</span>
+                                {% empty %}
+                                    <span class="shelf-tag">None.</span>
+                                {% endfor %}
+                                </p>
+                                    <a href="{% url 'owner_edit_shelf' s.id %}" id="link">Edit</a>
+                                    <form method="post" action="{% url 'owner_delete_shelf' s.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="button">Delete</button>
+                                    </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+    </section>
+
+</body>
+{%endblock content%}

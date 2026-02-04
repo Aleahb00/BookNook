@@ -589,8 +589,6 @@ body{
     border-radius: 12px;
     text-align: center;
     border: 1px solid #ddd;
-    border-radius: 12px;
-    text-align: center;
     padding: 2%;
     background: #2912005f;
     backdrop-filter: blur(16px);
@@ -640,9 +638,6 @@ body{
     border-radius: 12px;
     text-align: center;
     border: 1px solid #ddd;
-    border-radius: 12px;
-    text-align: center;
-    border: 1px solid #ddd;
     padding: 2%;
     background: #2912005f;
     backdrop-filter: blur(16px);
@@ -657,3 +652,6 @@ body{
     text-align: center;
     overflow: hidden;
 }
+
+
+/* !! NEW STYLES !! */
